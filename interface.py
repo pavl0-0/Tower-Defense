@@ -77,7 +77,6 @@ class UIManager:
         panel_x = c.SCREEN_WIDTH
         panel_center = panel_x + (c.SIDE_PANEL // 2)
         
-        # 1. Серця
         pg.draw.rect(screen, (60, 60, 60), (panel_x + 10, 10, 180, 50), border_radius=8)
         pg.draw.rect(screen, "white", (panel_x + 10, 10, 180, 50), 2, border_radius=8)
         
@@ -93,7 +92,6 @@ class UIManager:
             else:               idx = 3
             screen.blit(self.heart_images[idx], (start_heart_x + (i * 32), 21))
 
-        # 2. Гроші
         pg.draw.rect(screen, (60, 60, 60), (panel_x + 10, 70, 180, 40), border_radius=8)
         pg.draw.rect(screen, "white", (panel_x + 10, 70, 180, 40), 2, border_radius=8)
         

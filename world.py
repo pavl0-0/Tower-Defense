@@ -10,10 +10,24 @@ class World():
         self.tile_imgs = tile_imgs
 
     def process_data(self):
-        # Обробка даних рівня
-        if "waypoints" in self.level_data:
-            self.waypoints = self.level_data["waypoints"]
-            self.tile_map = self.level_data["layers"][0]["data"]
+        self.waypoints = self.level_data.get("waypoints", [])
+
+        if "tile_map" in self.level_data:
+            self.tile_map = self.level_data["tile_map"]
+            
+        elif "layers" in self.level_data:
+            flat_data = self.level_data["layers"][0]["data"]
+            self.tile_map = []
+            
+            for y in range(c.ROWS):
+                row = []
+                for x in range(c.COLS):
+                    index = y * c.COLS + x
+                    if index < len(flat_data):
+                        row.append(flat_data[index])
+                    else:
+                        row.append(0)
+                self.tile_map.append(row)
 
     def draw(self, surface):
         if self.tile_imgs and self.tile_map:
@@ -30,14 +44,14 @@ class World():
             
             for y in range(c.ROWS):
                 for x in range(c.COLS):
-                    tile_id = self.tile_map[y * c.COLS + x]
+                    tile_id = self.tile_map[y][x]
                     pos = (x * c.TILE_SIZE, y * c.TILE_SIZE)
                     
                     if tile_id == 1 or tile_id == 5:
                         # Функція перевірки сусідів
                         def is_road(nx, ny):
                             if 0 <= nx < c.COLS and 0 <= ny < c.ROWS:
-                                nid = self.tile_map[ny * c.COLS + nx]
+                                nid = self.tile_map[ny][nx]
                                 return nid == 1 or nid == 5
                             return False
 

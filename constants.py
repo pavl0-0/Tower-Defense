@@ -69,3 +69,9 @@ TURRET_DATA = {
         "slow_factor": 0
     }
 }
+
+GRID_GRASS = 0
+GRID_ROAD = 1
+GRID_ROCK = 2
+GRID_MUSHROOM = 3
+GRID_BASE = 5
